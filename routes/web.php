@@ -7,9 +7,14 @@ use App\Livewire\Categories\Index as CategoriesIndex;
 use App\Livewire\Members\Index as MembersIndex;
 use App\Livewire\Loans\Index as LoansIndex;
 
-Route::get('/', Dashboard::class);
+Route::get('/', \App\Livewire\Home::class);
+Route::get('/books/{id}', \App\Livewire\BookDetails::class);
+Route::get('/portal', \App\Livewire\MemberPortal::class);
+
+Route::get('/dashboard', Dashboard::class);
 Route::get('/books', BooksIndex::class);
 Route::get('/categories', CategoriesIndex::class);
 Route::get('/members', MembersIndex::class);
 Route::get('/members/{id}', \App\Livewire\Members\Show::class);
 Route::get('/loans', LoansIndex::class);
+Route::get('/reservations', \App\Livewire\Admin\Reservations::class);

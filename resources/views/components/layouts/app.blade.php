@@ -25,10 +25,15 @@
                     <a href="/categories" class="flex items-center p-3 rounded-lg hover:bg-indigo-600 {{ request()->is('categories*') ? 'bg-indigo-600' : '' }}">
                         <span class="mr-3">📁</span> Categories
                     </a>
-                    <a href="/members" class="flex items-center p-3 rounded-lg hover:bg-indigo-600 {{ request()->is('members*') ? 'bg-indigo-600' : '' }}">
-                        <span class="mr-3">👥</span> Members
-                    </a>
-                    <a href="/loans" class="flex items-center p-3 rounded-lg hover:bg-indigo-600 {{ request()->is('loans*') ? 'bg-indigo-600' : '' }}">
+                    <a href="/members" class="flex items-center space-x-3 p-3 rounded-lg {{ request()->is('members*') ? 'bg-indigo-600 text-white shadow-md' : 'hover:bg-indigo-50 text-gray-600' }} transition">
+                    <span class="text-xl">👥</span>
+                    <span class="font-medium">Members</span>
+                </a>
+                <a href="/reservations" class="flex items-center space-x-3 p-3 rounded-lg {{ request()->is('reservations*') ? 'bg-indigo-600 text-white shadow-md' : 'hover:bg-indigo-50 text-gray-600' }} transition">
+                    <span class="text-xl">🔔</span>
+                    <span class="font-medium">Reservations</span>
+                </a>
+                <a href="/loans" class="flex items-center space-x-3 p-3 rounded-lg {{ request()->is('loans*') ? 'bg-indigo-600 text-white shadow-md' : 'hover:bg-indigo-50 text-gray-600' }} transition">
                         <span class="mr-3">📑</span> Loans
                     </a>
                 </nav>
