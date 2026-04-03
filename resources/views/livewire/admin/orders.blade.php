@@ -6,7 +6,7 @@
     @endif
 
     <div class="mb-4">
-        <select wire:model.live="status" class="rounded-lg border-gray-300 focus:border-indigo-500 focus:ring-indigo-500">
+        <select wire:model.live="status" class="ui-select">
             <option value="">All statuses</option>
             <option value="pending">Pending</option>
             <option value="processing">Processing</option>

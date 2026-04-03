@@ -12,20 +12,20 @@
                 <h2 class="text-xl font-semibold mb-4">{{ $isEditMode ? 'Edit Book' : 'Add New Book' }}</h2>
                 <div class="space-y-4">
                     <div>
-                        <label class="block text-sm font-medium text-gray-700">Title</label>
-                        <input type="text" wire:model="title" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2 bg-gray-50">
+                        <label class="ui-field-label">Title</label>
+                        <input type="text" wire:model="title" class="ui-input">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700">Author</label>
-                        <input type="text" wire:model="author" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2 bg-gray-50">
+                        <label class="ui-field-label">Author</label>
+                        <input type="text" wire:model="author" class="ui-input">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700">ISBN</label>
-                        <input type="text" wire:model="isbn" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2 bg-gray-50">
+                        <label class="ui-field-label">ISBN</label>
+                        <input type="text" wire:model="isbn" class="ui-input">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700">Category</label>
-                        <select wire:model="category_id" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2 bg-gray-50">
+                        <label class="ui-field-label">Category</label>
+                        <select wire:model="category_id" class="ui-input">
                             <option value="">Select Category</option>
                             @foreach($categories as $cat)
                                 <option value="{{ $cat->id }}">{{ $cat->name }}</option>
@@ -33,15 +33,15 @@
                         </select>
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700">Quantity</label>
-                        <input type="number" wire:model="quantity" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2 bg-gray-50">
+                        <label class="ui-field-label">Quantity</label>
+                        <input type="number" wire:model="quantity" class="ui-input">
                     </div>
                     <div class="pt-4 flex gap-2">
                         @if($isEditMode)
-                            <button wire:click="update" class="w-full px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition">Update Book</button>
-                            <button wire:click="resetFields" class="w-full px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition">Cancel</button>
+                            <button wire:click="update" class="ui-btn-primary w-full">Update Book</button>
+                            <button wire:click="resetFields" class="ui-btn-secondary w-full">Cancel</button>
                         @else
-                            <button wire:click="store" class="w-full px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition">Save Book</button>
+                            <button wire:click="store" class="ui-btn-primary w-full">Save Book</button>
                         @endif
                     </div>
                 </div>
@@ -52,7 +52,7 @@
         <div class="w-full lg:w-2/3">
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
                 <div class="p-4 border-b border-gray-100">
-                    <input type="text" wire:model.live="search" placeholder="Search books..." class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2 bg-gray-50">
+                    <input type="text" wire:model.live="search" placeholder="Search books..." class="ui-search">
                 </div>
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50">

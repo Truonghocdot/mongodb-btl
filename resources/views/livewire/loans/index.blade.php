@@ -18,8 +18,8 @@
                 <h2 class="text-xl font-semibold mb-4">New Loan</h2>
                 <div class="space-y-4">
                     <div>
-                        <label class="block text-sm font-medium text-gray-700">Book</label>
-                        <select wire:model="book_id" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2 bg-gray-50">
+                        <label class="ui-field-label">Book</label>
+                        <select wire:model="book_id" class="ui-input">
                             <option value="">Select Book</option>
                             @foreach($books as $book)
                                 <option value="{{ $book->id }}">{{ $book->title }}</option>
@@ -27,8 +27,8 @@
                         </select>
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700">Member</label>
-                        <select wire:model="member_id" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2 bg-gray-50">
+                        <label class="ui-field-label">Member</label>
+                        <select wire:model="member_id" class="ui-input">
                             <option value="">Select Member</option>
                             @foreach($members as $member)
                                 <option value="{{ $member->id }}">{{ $member->name }}</option>
@@ -36,11 +36,11 @@
                         </select>
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700">Due Date</label>
-                        <input type="date" wire:model="due_date" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2 bg-gray-50">
+                        <label class="ui-field-label">Due Date</label>
+                        <input type="date" wire:model="due_date" class="ui-input">
                     </div>
                     <div class="pt-4">
-                        <button wire:click="store" class="w-full px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition">Create Loan</button>
+                        <button wire:click="store" class="ui-btn-primary w-full">Create Loan</button>
                     </div>
                 </div>
             </div>

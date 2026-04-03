@@ -16,16 +16,16 @@
 
             <div class="space-y-6">
                 <div>
-                    <label class="block text-sm font-semibold text-slate-700 mb-2">Email Address</label>
-                    <input type="email" wire:model="email" placeholder="e.g. name@example.com" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition bg-slate-50">
-                    @error('email') <span class="text-rose-500 text-[10px] font-bold mt-1 uppercase">{{ $message }}</span> @enderror
+                    <label class="ui-field-label">Email Address</label>
+                    <input type="email" wire:model="email" placeholder="e.g. name@example.com" class="ui-input">
+                    @error('email') <span class="ui-error">{{ $message }}</span> @enderror
                 </div>
                 <div>
-                    <label class="block text-sm font-semibold text-slate-700 mb-2">Phone Number</label>
-                    <input type="text" wire:model="phone" placeholder="e.g. 0912345678" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition bg-slate-50">
-                    @error('phone') <span class="text-rose-500 text-[10px] font-bold mt-1 uppercase">{{ $message }}</span> @enderror
+                    <label class="ui-field-label">Phone Number</label>
+                    <input type="text" wire:model="phone" placeholder="e.g. 0912345678" class="ui-input">
+                    @error('phone') <span class="ui-error">{{ $message }}</span> @enderror
                 </div>
-                <button wire:click="login" class="w-full py-4 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700 transition shadow-lg shadow-indigo-100">Access Portal</button>
+                <button wire:click="login" class="ui-btn-primary w-full">Access Portal</button>
             </div>
             
             <div class="mt-8 pt-6 border-t border-slate-100 text-center">

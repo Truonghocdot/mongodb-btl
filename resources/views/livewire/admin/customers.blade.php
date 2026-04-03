@@ -1,6 +1,6 @@
 <div>
     <div class="mb-4">
-        <input type="text" wire:model.live.debounce.300ms="search" placeholder="Search by name, email, phone..." class="w-full md:w-96 rounded-lg border-gray-300 focus:border-indigo-500 focus:ring-indigo-500">
+        <input type="text" wire:model.live.debounce.300ms="search" placeholder="Search by name, email, phone..." class="ui-search md:w-96">
     </div>
 
     <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">

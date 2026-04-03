@@ -9,22 +9,22 @@
         <h2 class="text-lg font-semibold mb-4">Create New Order</h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
-                <label class="block text-sm font-medium text-slate-700 mb-1">Item Name</label>
-                <input type="text" wire:model="item_name" class="w-full rounded-lg border-slate-300 focus:border-indigo-500 focus:ring-indigo-500">
-                @error('item_name') <p class="text-xs text-rose-600 mt-1">{{ $message }}</p> @enderror
+                <label class="ui-field-label">Item Name</label>
+                <input type="text" wire:model="item_name" class="ui-input">
+                @error('item_name') <p class="ui-error">{{ $message }}</p> @enderror
             </div>
             <div>
-                <label class="block text-sm font-medium text-slate-700 mb-1">Quantity</label>
-                <input type="number" min="1" wire:model="quantity" class="w-full rounded-lg border-slate-300 focus:border-indigo-500 focus:ring-indigo-500">
-                @error('quantity') <p class="text-xs text-rose-600 mt-1">{{ $message }}</p> @enderror
+                <label class="ui-field-label">Quantity</label>
+                <input type="number" min="1" wire:model="quantity" class="ui-input">
+                @error('quantity') <p class="ui-error">{{ $message }}</p> @enderror
             </div>
             <div>
-                <label class="block text-sm font-medium text-slate-700 mb-1">Total Amount</label>
-                <input type="number" min="0" step="0.01" wire:model="total_amount" class="w-full rounded-lg border-slate-300 focus:border-indigo-500 focus:ring-indigo-500">
-                @error('total_amount') <p class="text-xs text-rose-600 mt-1">{{ $message }}</p> @enderror
+                <label class="ui-field-label">Total Amount</label>
+                <input type="number" min="0" step="0.01" wire:model="total_amount" class="ui-input">
+                @error('total_amount') <p class="ui-error">{{ $message }}</p> @enderror
             </div>
         </div>
-        <button wire:click="createOrder" class="mt-4 bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition">Submit Order</button>
+        <button wire:click="createOrder" class="ui-btn-primary mt-4">Submit Order</button>
     </div>
 
     <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">

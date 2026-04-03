@@ -15,8 +15,8 @@
             <p class="text-2xl font-bold text-amber-700">VND {{ number_format($summary['total_unpaid']) }}</p>
         </div>
         <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
-            <label class="block text-sm font-medium text-gray-700 mb-2">Filter Status</label>
-            <select wire:model.live="status" class="w-full rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500">
+            <label class="ui-field-label">Filter Status</label>
+            <select wire:model.live="status" class="ui-select">
                 <option value="">All statuses</option>
                 <option value="unpaid">Unpaid</option>
                 <option value="paid">Paid</option>
