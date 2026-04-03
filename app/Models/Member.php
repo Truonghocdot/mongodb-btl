@@ -26,4 +26,9 @@ class Member extends Model
     {
         return $this->hasMany(Reservation::class);
     }
+
+    public function fines()
+    {
+        return $this->hasMany(Fine::class);
+    }
 }

@@ -164,6 +164,47 @@
                         </table>
                     </div>
                 </div>
+
+                <!-- Fine History -->
+                <div class="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden mt-8">
+                    <div class="p-6 border-b border-slate-100 flex justify-between items-center">
+                        <h3 class="font-bold text-slate-900">My Fines</h3>
+                        <span class="px-3 py-1 bg-amber-50 text-amber-700 text-xs font-bold rounded-full">{{ count($fines) }} Records</span>
+                    </div>
+
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-slate-100">
+                            <thead class="bg-slate-50">
+                                <tr>
+                                    <th class="px-6 py-4 text-left text-[10px] font-bold text-slate-400 uppercase tracking-widest">Book</th>
+                                    <th class="px-6 py-4 text-left text-[10px] font-bold text-slate-400 uppercase tracking-widest">Reason</th>
+                                    <th class="px-6 py-4 text-left text-[10px] font-bold text-slate-400 uppercase tracking-widest">Amount</th>
+                                    <th class="px-6 py-4 text-left text-[10px] font-bold text-slate-400 uppercase tracking-widest">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-50">
+                                @forelse($fines as $fine)
+                                    <tr class="hover:bg-slate-50 transition">
+                                        <td class="px-6 py-5 text-sm font-semibold text-slate-800">{{ $fine->loan->book->title ?? 'N/A' }}</td>
+                                        <td class="px-6 py-5 text-sm text-slate-600">{{ $fine->reason }}</td>
+                                        <td class="px-6 py-5 text-sm font-bold text-amber-700">VND {{ number_format($fine->amount) }}</td>
+                                        <td class="px-6 py-5">
+                                            <span class="px-3 py-1 text-[10px] font-bold rounded-full inline-block {{ $fine->status === 'paid' ? 'bg-emerald-100 text-emerald-700' : ($fine->status === 'waived' ? 'bg-slate-200 text-slate-700' : 'bg-rose-100 text-rose-700') }}">
+                                                {{ strtoupper($fine->status) }}
+                                            </span>
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="4" class="px-6 py-12 text-center">
+                                            <p class="text-slate-400 italic">No fines recorded.</p>
+                                        </td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     @endif

@@ -6,6 +6,7 @@ use Livewire\Component;
 use App\Models\Book;
 use App\Models\Member;
 use App\Models\Loan;
+use App\Models\Fine;
 
 class Dashboard extends Component
 {
@@ -16,8 +17,10 @@ class Dashboard extends Component
             'total_members' => Member::count(),
             'active_loans' => Loan::where('status', 'borrowed')->count(),
             'overdue_loans' => Loan::where('status', 'borrowed')
-                ->where('due_date', '<', now()->toDateTimeString())
+                ->where('due_date', '<', now()->toDateString())
                 ->count(),
+            'unpaid_fines' => Fine::where('status', 'unpaid')->count(),
+            'unpaid_amount' => Fine::where('status', 'unpaid')->sum('amount'),
         ];
 
         $recent_activities = Loan::with(['book', 'member'])

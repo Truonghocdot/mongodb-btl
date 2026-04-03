@@ -1,6 +1,6 @@
 <div class="space-y-6">
     <!-- Stats Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
         <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex items-center">
             <div class="p-3 bg-blue-100 rounded-lg text-blue-600 mr-4 text-2xl">📚</div>
             <div>
@@ -27,6 +27,14 @@
             <div>
                 <p class="text-sm text-gray-500 font-medium">Overdue</p>
                 <p class="text-2xl font-bold text-red-600">{{ $stats['overdue_loans'] }}</p>
+            </div>
+        </div>
+        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex items-center">
+            <div class="p-3 bg-amber-100 rounded-lg text-amber-600 mr-4 text-2xl">💸</div>
+            <div>
+                <p class="text-sm text-gray-500 font-medium">Unpaid Fines</p>
+                <p class="text-2xl font-bold text-amber-700">{{ $stats['unpaid_fines'] }}</p>
+                <p class="text-xs text-gray-500">VND {{ number_format($stats['unpaid_amount']) }}</p>
             </div>
         </div>
     </div>

@@ -6,6 +6,8 @@ use Livewire\Component;
 use App\Models\Loan;
 use App\Models\Book;
 use App\Models\Member;
+use App\Models\Fine;
+use App\Services\FineCalculator;
 use Livewire\WithPagination;
 
 class Index extends Component
@@ -43,12 +45,12 @@ class Index extends Component
         $this->validate([
             'book_id' => 'required',
             'member_id' => 'required',
-            'due_date' => 'required|date',
+            'due_date' => 'required|date|after_or_equal:today',
         ]);
 
         $book = Book::find($this->book_id);
-        
-        if ($book->quantity <= 0) {
+
+        if (!$book || $book->quantity <= 0) {
             session()->flash('error', 'This book is currently out of stock.');
             return;
         }
@@ -71,13 +73,15 @@ class Index extends Component
     public function markAsReturned($id)
     {
         $loan = Loan::find($id);
-        
-        if ($loan->status === 'returned') {
+
+        if (!$loan || $loan->status === 'returned') {
             return;
         }
 
+        $returnedAt = now()->toDateString();
+
         $loan->update([
-            'return_date' => now()->toDateString(),
+            'return_date' => $returnedAt,
             'status' => 'returned',
         ]);
 
@@ -85,6 +89,28 @@ class Index extends Component
         $book = Book::find($loan->book_id);
         if ($book) {
             $book->increment('quantity');
+        }
+
+        $dueDate = \Carbon\Carbon::parse($loan->due_date);
+        $returnDate = \Carbon\Carbon::parse($returnedAt);
+        $fineData = app(FineCalculator::class)->calculate(
+            $dueDate->toDateString(),
+            $returnDate->toDateString(),
+            (int) config('library.daily_fine', 5000)
+        );
+
+        if ($fineData['late_days'] > 0) {
+
+            Fine::updateOrCreate(
+                ['loan_id' => $loan->id],
+                [
+                    'member_id' => $loan->member_id,
+                    'amount' => $fineData['amount'],
+                    'reason' => "Overdue {$fineData['late_days']} day(s)",
+                    'status' => 'unpaid',
+                    'issued_at' => $returnedAt,
+                ]
+            );
         }
 
         session()->flash('message', 'Book Returned Successfully.');

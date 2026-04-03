@@ -5,6 +5,7 @@ namespace App\Livewire\Books;
 use Livewire\Component;
 use App\Models\Book;
 use Livewire\WithPagination;
+use Illuminate\Validation\Rule;
 
 class Index extends Component
 {
@@ -36,7 +37,7 @@ class Index extends Component
         $this->title = '';
         $this->author = '';
         $this->isbn = '';
-        $this->category = '';
+        $this->category_id = '';
         $this->quantity = '';
         $this->selected_id = null;
         $this->isEditMode = false;
@@ -47,7 +48,7 @@ class Index extends Component
         $this->validate([
             'title' => 'required',
             'author' => 'required',
-            'isbn' => 'required',
+            'isbn' => 'required|unique:mongodb.books,isbn',
             'quantity' => 'required|numeric',
         ]);
 
@@ -81,7 +82,10 @@ class Index extends Component
         $this->validate([
             'title' => 'required',
             'author' => 'required',
-            'isbn' => 'required',
+            'isbn' => [
+                'required',
+                Rule::unique('mongodb.books', 'isbn')->ignore($this->selected_id, '_id'),
+            ],
             'quantity' => 'required|numeric',
         ]);
 

@@ -6,6 +6,7 @@ use Livewire\Component;
 use App\Models\Member;
 use App\Models\Loan;
 use App\Models\Reservation;
+use App\Models\Fine;
 
 class MemberPortal extends Component
 {
@@ -54,6 +55,7 @@ class MemberPortal extends Component
     {
         $loans = [];
         $reservations = [];
+        $fines = [];
         if ($this->isLoggedIn && $this->member) {
             $loans = Loan::with('book')
                 ->where('member_id', $this->member->id)
@@ -64,11 +66,17 @@ class MemberPortal extends Component
                 ->where('member_id', $this->member->id)
                 ->orderBy('request_date', 'desc')
                 ->get();
+
+            $fines = Fine::with('loan.book')
+                ->where('member_id', $this->member->id)
+                ->orderBy('issued_at', 'desc')
+                ->get();
         }
 
         return view('livewire.member-portal', [
             'loans' => $loans,
             'reservations' => $reservations,
+            'fines' => $fines,
         ])->layout('components.layouts.user', ['title' => 'Member Portal']);
     }
 }

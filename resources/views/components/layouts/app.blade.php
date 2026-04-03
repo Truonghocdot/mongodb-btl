@@ -16,7 +16,7 @@
                     Library CRM
                 </div>
                 <nav class="mt-6 flex-1 px-4 space-y-2">
-                    <a href="/" class="flex items-center p-3 rounded-lg hover:bg-indigo-600 {{ request()->is('/') ? 'bg-indigo-600' : '' }}">
+                    <a href="/dashboard" class="flex items-center p-3 rounded-lg hover:bg-indigo-600 {{ request()->is('dashboard') ? 'bg-indigo-600' : '' }}">
                         <span class="mr-3">📊</span> Dashboard
                     </a>
                     <a href="/books" class="flex items-center p-3 rounded-lg hover:bg-indigo-600 {{ request()->is('books*') ? 'bg-indigo-600' : '' }}">
@@ -36,6 +36,10 @@
                 <a href="/loans" class="flex items-center space-x-3 p-3 rounded-lg {{ request()->is('loans*') ? 'bg-indigo-600 text-white shadow-md' : 'hover:bg-indigo-50 text-gray-600' }} transition">
                         <span class="mr-3">📑</span> Loans
                     </a>
+                <a href="/fines" class="flex items-center space-x-3 p-3 rounded-lg {{ request()->is('fines*') ? 'bg-indigo-600 text-white shadow-md' : 'hover:bg-indigo-50 text-gray-600' }} transition">
+                    <span class="text-xl">💸</span>
+                    <span class="font-medium">Fines</span>
+                </a>
                 </nav>
             </aside>
 

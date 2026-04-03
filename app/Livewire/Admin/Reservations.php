@@ -15,10 +15,26 @@ class Reservations extends Component
     public function approve($id)
     {
         $reservation = Reservation::findOrFail($id);
-        
+
+        if ($reservation->status !== 'pending') {
+            session()->flash('error', 'Reservation has already been processed.');
+            return;
+        }
+
         $book = Book::find($reservation->book_id);
-        if ($book->quantity <= 0) {
+        if (!$book || $book->quantity <= 0) {
             session()->flash('error', 'Book is out of stock. Cannot approve.');
+            return;
+        }
+
+        $hasActiveLoan = Loan::where('book_id', $reservation->book_id)
+            ->where('member_id', $reservation->member_id)
+            ->where('status', 'borrowed')
+            ->exists();
+
+        if ($hasActiveLoan) {
+            $reservation->update(['status' => 'cancelled']);
+            session()->flash('error', 'Member already has an active loan for this book. Reservation cancelled.');
             return;
         }
 
@@ -42,7 +58,13 @@ class Reservations extends Component
 
     public function cancel($id)
     {
-        Reservation::findOrFail($id)->update(['status' => 'cancelled']);
+        $reservation = Reservation::findOrFail($id);
+        if ($reservation->status !== 'pending') {
+            session()->flash('error', 'Reservation has already been processed.');
+            return;
+        }
+
+        $reservation->update(['status' => 'cancelled']);
         session()->flash('message', 'Reservation Cancelled.');
     }
 

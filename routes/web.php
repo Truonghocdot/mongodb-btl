@@ -18,3 +18,4 @@ Route::get('/members', MembersIndex::class);
 Route::get('/members/{id}', \App\Livewire\Members\Show::class);
 Route::get('/loans', LoansIndex::class);
 Route::get('/reservations', \App\Livewire\Admin\Reservations::class);
+Route::get('/fines', \App\Livewire\Admin\Fines::class);

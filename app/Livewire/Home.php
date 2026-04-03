@@ -22,6 +22,22 @@ class Home extends Component
             return redirect('/portal');
         }
 
+        $book = Book::find($bookId);
+        if (!$book || $book->quantity <= 0) {
+            session()->flash('error', 'Book is currently unavailable.');
+            return;
+        }
+
+        $hasPending = Reservation::where('book_id', $bookId)
+            ->where('member_id', session('member_id'))
+            ->where('status', 'pending')
+            ->exists();
+
+        if ($hasPending) {
+            session()->flash('error', 'You already have a pending reservation for this book.');
+            return;
+        }
+
         Reservation::create([
             'book_id' => $bookId,
             'member_id' => session('member_id'),
@@ -40,7 +56,8 @@ class Home extends Component
         $books = Book::with('category')
             ->where(function($query) {
                 $query->where('title', 'like', '%'.$this->search.'%')
-                      ->orWhere('author', 'like', '%'.$this->search.'%');
+                      ->orWhere('author', 'like', '%'.$this->search.'%')
+                      ->orWhere('isbn', 'like', '%'.$this->search.'%');
             })
             ->when($this->category_id, function($query) {
                 $query->where('category_id', $this->category_id);

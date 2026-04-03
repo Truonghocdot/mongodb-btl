@@ -27,4 +27,9 @@ class Loan extends Model
     {
         return $this->belongsTo(Member::class);
     }
+
+    public function fine()
+    {
+        return $this->hasOne(Fine::class);
+    }
 }

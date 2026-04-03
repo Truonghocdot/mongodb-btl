@@ -7,6 +7,19 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+## Library Setup Notes
+
+This project uses MongoDB collections for the library domain (`books`, `members`, `loans`, `reservations`, `reviews`, `fines`).
+
+After configuring `.env`, run:
+
+```bash
+php artisan db:seed
+php artisan library:indexes
+```
+
+`library:indexes` is idempotent and ensures unique / query-performance indexes for the domain collections.
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:

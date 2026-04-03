@@ -5,6 +5,7 @@ namespace App\Livewire\Members;
 use Livewire\Component;
 use App\Models\Member;
 use Livewire\WithPagination;
+use Illuminate\Validation\Rule;
 
 class Index extends Component
 {
@@ -40,7 +41,7 @@ class Index extends Component
     {
         $this->validate([
             'name' => 'required',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:mongodb.members,email',
         ]);
 
         Member::create([
@@ -70,7 +71,11 @@ class Index extends Component
     {
         $this->validate([
             'name' => 'required',
-            'email' => 'required|email',
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('mongodb.members', 'email')->ignore($this->selected_id, '_id'),
+            ],
         ]);
 
         if ($this->selected_id) {
