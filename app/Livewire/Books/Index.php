@@ -4,6 +4,9 @@ namespace App\Livewire\Books;
 
 use Livewire\Component;
 use App\Models\Book;
+use App\Models\Loan;
+use App\Models\Reservation;
+use App\Models\Review;
 use Livewire\WithPagination;
 use Illuminate\Validation\Rule;
 
@@ -110,6 +113,15 @@ class Index extends Component
 
     public function delete($id)
     {
+        $hasRelations = Loan::where('book_id', $id)->exists()
+            || Reservation::where('book_id', $id)->exists()
+            || Review::where('book_id', $id)->exists();
+
+        if ($hasRelations) {
+            session()->flash('error', 'Cannot delete this book because it already has related records (loans/reservations/reviews).');
+            return;
+        }
+
         Book::find($id)->delete();
         session()->flash('message', 'Book Deleted Successfully.');
     }

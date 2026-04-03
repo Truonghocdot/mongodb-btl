@@ -123,6 +123,11 @@ class Index extends Component
 
     public function delete($id)
     {
+        if (Fine::where('loan_id', $id)->exists()) {
+            session()->flash('error', 'Cannot delete this loan because a fine record is linked to it.');
+            return;
+        }
+
         Loan::find($id)->delete();
         session()->flash('message', 'Loan Deleted Successfully.');
     }

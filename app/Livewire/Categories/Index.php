@@ -3,6 +3,7 @@
 namespace App\Livewire\Categories;
 
 use Livewire\Component;
+use App\Models\Book;
 use App\Models\Category;
 use Livewire\WithPagination;
 
@@ -81,6 +82,11 @@ class Index extends Component
 
     public function delete($id)
     {
+        if (Book::where('category_id', $id)->exists()) {
+            session()->flash('error', 'Cannot delete this category because it is linked to existing books.');
+            return;
+        }
+
         Category::find($id)->delete();
         session()->flash('message', 'Category Deleted Successfully.');
     }

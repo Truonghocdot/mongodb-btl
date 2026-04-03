@@ -104,16 +104,24 @@ class Home extends Component
             return;
         }
 
-        Loan::create([
+        $hasPending = Reservation::where('book_id', $bookId)
+            ->where('member_id', $memberId)
+            ->where('status', 'pending')
+            ->exists();
+
+        if ($hasPending) {
+            session()->flash('error', 'You already have a pending borrow request for this book.');
+            return;
+        }
+
+        Reservation::create([
             'book_id' => $bookId,
             'member_id' => $memberId,
-            'borrow_date' => now()->toDateString(),
-            'due_date' => now()->addDays(14)->toDateString(),
-            'status' => 'borrowed',
+            'status' => 'pending',
+            'request_date' => now()->toDateString(),
         ]);
 
-        $book->decrement('quantity');
-        session()->flash('message', 'Borrowed successfully. Please return before due date.');
+        session()->flash('message', 'Borrow request submitted. Please wait for librarian approval.');
     }
 
     public function updatingSearch() { $this->resetPage(); }

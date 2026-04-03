@@ -3,7 +3,11 @@
 namespace App\Livewire\Members;
 
 use Livewire\Component;
+use App\Models\Fine;
+use App\Models\Loan;
 use App\Models\Member;
+use App\Models\Reservation;
+use App\Models\Review;
 use Livewire\WithPagination;
 use Illuminate\Validation\Rule;
 
@@ -98,6 +102,16 @@ class Index extends Component
 
     public function delete($id)
     {
+        $hasRelations = Loan::where('member_id', $id)->exists()
+            || Reservation::where('member_id', $id)->exists()
+            || Review::where('member_id', $id)->exists()
+            || Fine::where('member_id', $id)->exists();
+
+        if ($hasRelations) {
+            session()->flash('error', 'Cannot delete this member because related records already exist.');
+            return;
+        }
+
         Member::find($id)->delete();
         session()->flash('message', 'Member Deleted Successfully.');
     }
