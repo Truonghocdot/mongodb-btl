@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ $title ?? 'Library Catalog' }}</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @livewireStyles
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; }
@@ -21,9 +22,11 @@
                     </a>
                     <div class="hidden md:ml-10 md:flex md:space-x-8">
                         <a href="/" class="inline-flex items-center px-1 pt-1 border-b-2 {{ request()->is('/') ? 'border-indigo-500 text-slate-900' : 'border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300' }} text-sm font-medium">Catalog</a>
-                        <a href="/portal" class="inline-flex items-center px-1 pt-1 border-b-2 {{ request()->is('portal*') ? 'border-indigo-500 text-slate-900' : 'border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300' }} text-sm font-medium">My Loans</a>
                         @if(auth()->check() && auth()->user()->isCustomer())
+                            <a href="/customer/loans" class="inline-flex items-center px-1 pt-1 border-b-2 {{ request()->is('customer/loans*') ? 'border-indigo-500 text-slate-900' : 'border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300' }} text-sm font-medium">My Loans</a>
                             <a href="/customer/orders" class="inline-flex items-center px-1 pt-1 border-b-2 {{ request()->is('customer/orders*') ? 'border-indigo-500 text-slate-900' : 'border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300' }} text-sm font-medium">My Orders</a>
+                        @else
+                            <a href="/portal" class="inline-flex items-center px-1 pt-1 border-b-2 {{ request()->is('portal*') ? 'border-indigo-500 text-slate-900' : 'border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300' }} text-sm font-medium">My Loans</a>
                         @endif
                     </div>
                 </div>
@@ -54,5 +57,6 @@
             <p>&copy; {{ date('Y') }} LibPortal - Smart Library Management System</p>
         </div>
     </footer>
+    @livewireScripts
 </body>
 </html>

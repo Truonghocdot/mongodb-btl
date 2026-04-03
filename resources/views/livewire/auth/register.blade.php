@@ -2,39 +2,38 @@
     <h1 class="text-2xl font-bold text-slate-900 mb-2">Customer Registration</h1>
     <p class="text-slate-500 text-sm mb-6">Create your customer account to manage orders.</p>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <form wire:submit.prevent="register" class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
             <label class="ui-field-label">Full Name</label>
-            <input type="text" wire:model="name" class="ui-input">
+            <input type="text" wire:model.live="name" class="ui-input" autocomplete="name">
             @error('name') <p class="ui-error">{{ $message }}</p> @enderror
         </div>
         <div>
             <label class="ui-field-label">Email</label>
-            <input type="email" wire:model="email" class="ui-input">
+            <input type="email" wire:model.live="email" class="ui-input" autocomplete="email">
             @error('email') <p class="ui-error">{{ $message }}</p> @enderror
         </div>
         <div>
             <label class="ui-field-label">Phone</label>
-            <input type="text" wire:model="phone" class="ui-input">
+            <input type="text" wire:model.live="phone" class="ui-input">
             @error('phone') <p class="ui-error">{{ $message }}</p> @enderror
         </div>
         <div>
             <label class="ui-field-label">Address</label>
-            <input type="text" wire:model="address" class="ui-input">
+            <input type="text" wire:model.live="address" class="ui-input" autocomplete="street-address">
             @error('address') <p class="ui-error">{{ $message }}</p> @enderror
         </div>
         <div>
             <label class="ui-field-label">Password</label>
-            <input type="password" wire:model="password" class="ui-input">
+            <input type="password" wire:model.live="password" class="ui-input" autocomplete="new-password">
             @error('password') <p class="ui-error">{{ $message }}</p> @enderror
         </div>
         <div>
             <label class="ui-field-label">Confirm Password</label>
-            <input type="password" wire:model="password_confirmation" class="ui-input">
+            <input type="password" wire:model.live="password_confirmation" class="ui-input" autocomplete="new-password">
         </div>
-    </div>
-
-    <button wire:click="register" class="ui-btn-primary w-full mt-6">Register</button>
+        <button type="submit" class="ui-btn-primary w-full mt-2 md:col-span-2" wire:loading.attr="disabled">Register</button>
+    </form>
 
     <p class="text-sm text-slate-500 mt-4">
         Already have an account?

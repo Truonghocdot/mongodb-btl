@@ -10,32 +10,36 @@
         <div class="w-full lg:w-1/3">
             <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
                 <h2 class="text-xl font-semibold mb-4">{{ $isEditMode ? 'Edit Member' : 'Register Member' }}</h2>
-                <div class="space-y-4">
+                <form wire:submit.prevent="{{ $isEditMode ? 'update' : 'store' }}" class="space-y-4">
                     <div>
                         <label class="ui-field-label">Name</label>
-                        <input type="text" wire:model="name" class="ui-input">
+                        <input type="text" wire:model.live="name" class="ui-input">
+                        @error('name') <p class="ui-error">{{ $message }}</p> @enderror
                     </div>
                     <div>
                         <label class="ui-field-label">Email</label>
-                        <input type="email" wire:model="email" class="ui-input">
+                        <input type="email" wire:model.live="email" class="ui-input">
+                        @error('email') <p class="ui-error">{{ $message }}</p> @enderror
                     </div>
                     <div>
                         <label class="ui-field-label">Phone</label>
-                        <input type="text" wire:model="phone" class="ui-input">
+                        <input type="text" wire:model.live="phone" class="ui-input">
+                        @error('phone') <p class="ui-error">{{ $message }}</p> @enderror
                     </div>
                     <div>
                         <label class="ui-field-label">Address</label>
-                        <textarea wire:model="address" class="ui-input"></textarea>
+                        <textarea wire:model.live="address" class="ui-input"></textarea>
+                        @error('address') <p class="ui-error">{{ $message }}</p> @enderror
                     </div>
                     <div class="pt-4 flex gap-2">
                         @if($isEditMode)
-                            <button wire:click="update" class="ui-btn-primary w-full">Update Member</button>
-                            <button wire:click="resetFields" class="ui-btn-secondary w-full">Cancel</button>
+                            <button type="submit" class="ui-btn-primary w-full" wire:loading.attr="disabled">Update Member</button>
+                            <button type="button" wire:click="resetFields" class="ui-btn-secondary w-full">Cancel</button>
                         @else
-                            <button wire:click="store" class="ui-btn-primary w-full">Register</button>
+                            <button type="submit" class="ui-btn-primary w-full" wire:loading.attr="disabled">Register</button>
                         @endif
                     </div>
-                </div>
+                </form>
             </div>
         </div>
 

@@ -7,24 +7,24 @@
 
     <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
         <h2 class="text-lg font-semibold mb-4">Create New Order</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <form wire:submit.prevent="createOrder" class="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
                 <label class="ui-field-label">Item Name</label>
-                <input type="text" wire:model="item_name" class="ui-input">
+                <input type="text" wire:model.live="item_name" class="ui-input">
                 @error('item_name') <p class="ui-error">{{ $message }}</p> @enderror
             </div>
             <div>
                 <label class="ui-field-label">Quantity</label>
-                <input type="number" min="1" wire:model="quantity" class="ui-input">
+                <input type="number" min="1" wire:model.live="quantity" class="ui-input">
                 @error('quantity') <p class="ui-error">{{ $message }}</p> @enderror
             </div>
             <div>
                 <label class="ui-field-label">Total Amount</label>
-                <input type="number" min="0" step="0.01" wire:model="total_amount" class="ui-input">
+                <input type="number" min="0" step="0.01" wire:model.live="total_amount" class="ui-input">
                 @error('total_amount') <p class="ui-error">{{ $message }}</p> @enderror
             </div>
-        </div>
-        <button wire:click="createOrder" class="ui-btn-primary mt-4">Submit Order</button>
+            <button type="submit" class="ui-btn-primary mt-1 md:col-span-3 md:w-fit" wire:loading.attr="disabled">Submit Order</button>
+        </form>
     </div>
 
     <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">

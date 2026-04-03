@@ -14,6 +14,11 @@ class MemberPortal extends Component
     public $isLoggedIn = false;
     public $member;
 
+    public function updated(string $property): void
+    {
+        $this->resetValidation($property);
+    }
+
     public function login()
     {
         $this->validate([

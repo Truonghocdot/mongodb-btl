@@ -16,33 +16,36 @@
         <div class="w-full lg:w-1/3">
             <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
                 <h2 class="text-xl font-semibold mb-4">New Loan</h2>
-                <div class="space-y-4">
+                <form wire:submit.prevent="store" class="space-y-4">
                     <div>
                         <label class="ui-field-label">Book</label>
-                        <select wire:model="book_id" class="ui-input">
+                        <select wire:model.live="book_id" class="ui-input">
                             <option value="">Select Book</option>
                             @foreach($books as $book)
                                 <option value="{{ $book->id }}">{{ $book->title }}</option>
                             @endforeach
                         </select>
+                        @error('book_id') <p class="ui-error">{{ $message }}</p> @enderror
                     </div>
                     <div>
                         <label class="ui-field-label">Member</label>
-                        <select wire:model="member_id" class="ui-input">
+                        <select wire:model.live="member_id" class="ui-input">
                             <option value="">Select Member</option>
                             @foreach($members as $member)
                                 <option value="{{ $member->id }}">{{ $member->name }}</option>
                             @endforeach
                         </select>
+                        @error('member_id') <p class="ui-error">{{ $message }}</p> @enderror
                     </div>
                     <div>
                         <label class="ui-field-label">Due Date</label>
-                        <input type="date" wire:model="due_date" class="ui-input">
+                        <input type="date" wire:model.live="due_date" class="ui-input">
+                        @error('due_date') <p class="ui-error">{{ $message }}</p> @enderror
                     </div>
                     <div class="pt-4">
-                        <button wire:click="store" class="ui-btn-primary w-full">Create Loan</button>
+                        <button type="submit" class="ui-btn-primary w-full" wire:loading.attr="disabled">Create Loan</button>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
 

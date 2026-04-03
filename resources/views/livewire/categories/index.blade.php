@@ -10,25 +10,26 @@
         <div class="w-full lg:w-1/3">
             <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
                 <h2 class="text-xl font-semibold mb-4">{{ $isEditMode ? 'Edit Category' : 'Add New Category' }}</h2>
-                <div class="space-y-4">
+                <form wire:submit.prevent="{{ $isEditMode ? 'update' : 'store' }}" class="space-y-4">
                     <div>
                         <label class="ui-field-label">Name</label>
-                        <input type="text" wire:model="name" class="ui-input">
-                        @error('name') <span class="ui-error">{{ $message }}</span> @enderror
+                        <input type="text" wire:model.live="name" class="ui-input">
+                        @error('name') <p class="ui-error">{{ $message }}</p> @enderror
                     </div>
                     <div>
                         <label class="ui-field-label">Description</label>
-                        <textarea wire:model="description" class="ui-input"></textarea>
+                        <textarea wire:model.live="description" class="ui-input"></textarea>
+                        @error('description') <p class="ui-error">{{ $message }}</p> @enderror
                     </div>
                     <div class="pt-4 flex gap-2">
                         @if($isEditMode)
-                            <button wire:click="update" class="ui-btn-primary w-full">Update</button>
-                            <button wire:click="resetFields" class="ui-btn-secondary w-full">Cancel</button>
+                            <button type="submit" class="ui-btn-primary w-full" wire:loading.attr="disabled">Update</button>
+                            <button type="button" wire:click="resetFields" class="ui-btn-secondary w-full">Cancel</button>
                         @else
-                            <button wire:click="store" class="ui-btn-primary w-full">Save</button>
+                            <button type="submit" class="ui-btn-primary w-full" wire:loading.attr="disabled">Save</button>
                         @endif
                     </div>
-                </div>
+                </form>
             </div>
         </div>
 

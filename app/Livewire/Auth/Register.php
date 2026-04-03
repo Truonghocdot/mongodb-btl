@@ -15,6 +15,11 @@ class Register extends Component
     public $password = '';
     public $password_confirmation = '';
 
+    public function updated(string $property): void
+    {
+        $this->resetValidation($property);
+    }
+
     public function register()
     {
         $validated = $this->validate([

@@ -10,22 +10,25 @@
         <div class="w-full lg:w-1/3">
             <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
                 <h2 class="text-xl font-semibold mb-4">{{ $isEditMode ? 'Edit Book' : 'Add New Book' }}</h2>
-                <div class="space-y-4">
+                <form wire:submit.prevent="{{ $isEditMode ? 'update' : 'store' }}" class="space-y-4">
                     <div>
                         <label class="ui-field-label">Title</label>
-                        <input type="text" wire:model="title" class="ui-input">
+                        <input type="text" wire:model.live="title" class="ui-input">
+                        @error('title') <p class="ui-error">{{ $message }}</p> @enderror
                     </div>
                     <div>
                         <label class="ui-field-label">Author</label>
-                        <input type="text" wire:model="author" class="ui-input">
+                        <input type="text" wire:model.live="author" class="ui-input">
+                        @error('author') <p class="ui-error">{{ $message }}</p> @enderror
                     </div>
                     <div>
                         <label class="ui-field-label">ISBN</label>
-                        <input type="text" wire:model="isbn" class="ui-input">
+                        <input type="text" wire:model.live="isbn" class="ui-input">
+                        @error('isbn') <p class="ui-error">{{ $message }}</p> @enderror
                     </div>
                     <div>
                         <label class="ui-field-label">Category</label>
-                        <select wire:model="category_id" class="ui-input">
+                        <select wire:model.live="category_id" class="ui-input">
                             <option value="">Select Category</option>
                             @foreach($categories as $cat)
                                 <option value="{{ $cat->id }}">{{ $cat->name }}</option>
@@ -34,17 +37,18 @@
                     </div>
                     <div>
                         <label class="ui-field-label">Quantity</label>
-                        <input type="number" wire:model="quantity" class="ui-input">
+                        <input type="number" wire:model.live="quantity" class="ui-input">
+                        @error('quantity') <p class="ui-error">{{ $message }}</p> @enderror
                     </div>
                     <div class="pt-4 flex gap-2">
                         @if($isEditMode)
-                            <button wire:click="update" class="ui-btn-primary w-full">Update Book</button>
-                            <button wire:click="resetFields" class="ui-btn-secondary w-full">Cancel</button>
+                            <button type="submit" class="ui-btn-primary w-full" wire:loading.attr="disabled">Update Book</button>
+                            <button type="button" wire:click="resetFields" class="ui-btn-secondary w-full">Cancel</button>
                         @else
-                            <button wire:click="store" class="ui-btn-primary w-full">Save Book</button>
+                            <button type="submit" class="ui-btn-primary w-full" wire:loading.attr="disabled">Save Book</button>
                         @endif
                     </div>
-                </div>
+                </form>
             </div>
         </div>
 

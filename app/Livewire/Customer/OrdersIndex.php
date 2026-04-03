@@ -15,6 +15,11 @@ class OrdersIndex extends Component
     public $quantity = 1;
     public $total_amount = '';
 
+    public function updated(string $property): void
+    {
+        $this->resetValidation($property);
+    }
+
     public function createOrder()
     {
         $validated = $this->validate([

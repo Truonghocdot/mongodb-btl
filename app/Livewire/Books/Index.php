@@ -16,6 +16,11 @@ class Index extends Component
     public $selected_id;
     public $isEditMode = false;
 
+    public function updated(string $property): void
+    {
+        $this->resetValidation($property);
+    }
+
     public function render()
     {
         $books = Book::with('category')

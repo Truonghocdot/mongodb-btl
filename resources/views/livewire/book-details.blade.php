@@ -38,7 +38,10 @@
                 
                 <div class="mt-8">
                     @if($book->quantity > 0)
-                        <button wire:click="$parent.reserve('{{ $book->id }}')" class="ui-btn-primary w-full">Reserve This Book</button>
+                        <div class="space-y-3">
+                            <button wire:click="borrowBook" class="ui-btn-primary w-full">Borrow This Book</button>
+                            <button wire:click="reserveBook" class="ui-btn-secondary w-full">Reserve This Book</button>
+                        </div>
                     @else
                         <button disabled class="w-full py-4 bg-slate-100 text-slate-400 rounded-xl font-bold cursor-not-allowed uppercase text-xs tracking-widest">Out of Stock</button>
                     @endif
@@ -57,10 +60,10 @@
             <!-- Review Form -->
             <div class="bg-indigo-50 p-8 rounded-3xl">
                 <h3 class="text-xl font-bold text-slate-900 mb-4">Leave a Review</h3>
-                <div class="space-y-4">
+                <form wire:submit.prevent="submitReview" class="space-y-4">
                     <div>
                         <label class="ui-field-label">Rating</label>
-                        <select wire:model="rating" class="ui-select bg-white">
+                        <select wire:model.live="rating" class="ui-select bg-white">
                             <option value="5">⭐⭐⭐⭐⭐ (Excellent)</option>
                             <option value="4">⭐⭐⭐⭐ (Good)</option>
                             <option value="3">⭐⭐⭐ (Average)</option>
@@ -70,11 +73,11 @@
                     </div>
                     <div>
                         <label class="ui-field-label">Comment</label>
-                        <textarea wire:model="comment" rows="4" class="ui-textarea bg-white" placeholder="What did you think about this book?"></textarea>
+                        <textarea wire:model.live="comment" rows="4" class="ui-textarea bg-white" placeholder="What did you think about this book?"></textarea>
                         @error('comment') <span class="ui-error">{{ $message }}</span> @enderror
                     </div>
-                    <button wire:click="submitReview" class="ui-btn-primary">Submit Review</button>
-                </div>
+                    <button type="submit" class="ui-btn-primary" wire:loading.attr="disabled">Submit Review</button>
+                </form>
             </div>
 
             <!-- Reviews List -->

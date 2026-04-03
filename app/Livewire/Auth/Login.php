@@ -10,6 +10,12 @@ class Login extends Component
     public $email = '';
     public $password = '';
 
+    public function updated(string $property): void
+    {
+        $this->resetValidation($property);
+        $this->resetErrorBag('auth');
+    }
+
     public function login()
     {
         $credentials = $this->validate([
@@ -18,7 +24,7 @@ class Login extends Component
         ]);
 
         if (! Auth::attempt($credentials)) {
-            $this->addError('email', 'Invalid email or password.');
+            $this->addError('auth', 'Invalid email or password.');
             return;
         }
 

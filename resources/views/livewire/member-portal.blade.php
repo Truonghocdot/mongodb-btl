@@ -14,19 +14,19 @@
                 </div>
             @endif
 
-            <div class="space-y-6">
+            <form wire:submit.prevent="login" class="space-y-6">
                 <div>
                     <label class="ui-field-label">Email Address</label>
-                    <input type="email" wire:model="email" placeholder="e.g. name@example.com" class="ui-input">
+                    <input type="email" wire:model.live="email" placeholder="e.g. name@example.com" class="ui-input" autocomplete="email">
                     @error('email') <span class="ui-error">{{ $message }}</span> @enderror
                 </div>
                 <div>
                     <label class="ui-field-label">Phone Number</label>
-                    <input type="text" wire:model="phone" placeholder="e.g. 0912345678" class="ui-input">
+                    <input type="text" wire:model.live="phone" placeholder="e.g. 0912345678" class="ui-input">
                     @error('phone') <span class="ui-error">{{ $message }}</span> @enderror
                 </div>
-                <button wire:click="login" class="ui-btn-primary w-full">Access Portal</button>
-            </div>
+                <button type="submit" class="ui-btn-primary w-full" wire:loading.attr="disabled">Access Portal</button>
+            </form>
             
             <div class="mt-8 pt-6 border-t border-slate-100 text-center">
                 <p class="text-xs text-slate-400 italic">Not a member yet? Please visit the library to register.</p>

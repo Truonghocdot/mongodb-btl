@@ -23,6 +23,7 @@ Route::post('/logout', function () {
 })->middleware('auth');
 
 Route::middleware(['auth', 'customer'])->group(function () {
+    Route::get('/customer/loans', \App\Livewire\Customer\LoansIndex::class);
     Route::get('/customer/orders', \App\Livewire\Customer\OrdersIndex::class);
 });
 
