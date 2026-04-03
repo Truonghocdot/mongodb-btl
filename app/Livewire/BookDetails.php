@@ -130,7 +130,8 @@ class BookDetails extends Component
         $memberId = $this->resolveMemberId();
         if (!$memberId) {
             session()->flash('error', 'Please login as customer to leave a review.');
-            return redirect('/login');
+            $this->redirect('/login', navigate: true);
+            return;
         }
 
         $this->validate([

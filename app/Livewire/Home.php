@@ -49,7 +49,8 @@ class Home extends Component
         $memberId = $this->resolveMemberId();
         if (!$memberId) {
             session()->flash('error', 'Please login as customer to reserve books.');
-            return redirect('/login');
+            $this->redirect('/login', navigate: true);
+            return;
         }
 
         $book = Book::find($bookId);
@@ -83,7 +84,8 @@ class Home extends Component
         $memberId = $this->resolveMemberId();
         if (!$memberId) {
             session()->flash('error', 'Please login as customer to borrow books.');
-            return redirect('/login');
+            $this->redirect('/login', navigate: true);
+            return;
         }
 
         $book = Book::find($bookId);

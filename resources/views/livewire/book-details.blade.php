@@ -39,8 +39,24 @@
                 <div class="mt-8">
                     @if($book->quantity > 0)
                         <div class="space-y-3">
-                            <button wire:click="borrowBook" class="ui-btn-primary w-full">Borrow This Book</button>
-                            <button wire:click="reserveBook" class="ui-btn-secondary w-full">Reserve This Book</button>
+                            <button
+                                type="button"
+                                wire:click.prevent="borrowBook"
+                                wire:loading.attr="disabled"
+                                wire:target="borrowBook"
+                                class="ui-btn-primary w-full disabled:opacity-50 disabled:cursor-not-allowed"
+                            >
+                                Borrow This Book
+                            </button>
+                            <button
+                                type="button"
+                                wire:click.prevent="reserveBook"
+                                wire:loading.attr="disabled"
+                                wire:target="reserveBook"
+                                class="ui-btn-secondary w-full disabled:opacity-50 disabled:cursor-not-allowed"
+                            >
+                                Reserve This Book
+                            </button>
                         </div>
                     @else
                         <button disabled class="w-full py-4 bg-slate-100 text-slate-400 rounded-xl font-bold cursor-not-allowed uppercase text-xs tracking-widest">Out of Stock</button>

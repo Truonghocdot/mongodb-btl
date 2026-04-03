@@ -60,8 +60,24 @@
                         <span class="text-xs text-slate-400 font-medium italic">ISBN: {{ $book->isbn }}</span>
                         @if($book->quantity > 0)
                             <div class="flex items-center gap-3">
-                                <button wire:click="borrow('{{ $book->id }}')" class="text-sm font-bold text-emerald-600 hover:text-emerald-700">Borrow</button>
-                                <button wire:click="reserve('{{ $book->id }}')" class="text-sm font-bold text-indigo-600 hover:text-indigo-700">Reserve</button>
+                                <button
+                                    type="button"
+                                    wire:click.prevent="borrow('{{ $book->id }}')"
+                                    wire:loading.attr="disabled"
+                                    wire:target="borrow"
+                                    class="text-sm font-bold text-emerald-600 hover:text-emerald-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                                >
+                                    Borrow
+                                </button>
+                                <button
+                                    type="button"
+                                    wire:click.prevent="reserve('{{ $book->id }}')"
+                                    wire:loading.attr="disabled"
+                                    wire:target="reserve"
+                                    class="text-sm font-bold text-indigo-600 hover:text-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                                >
+                                    Reserve
+                                </button>
                             </div>
                         @else
                             <span class="text-sm font-bold text-slate-300 cursor-not-allowed">Unavailable</span>
