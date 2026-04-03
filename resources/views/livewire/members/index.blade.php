@@ -66,7 +66,7 @@
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $member->join_date }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-2">
-                                    <a href="/members/{{ $member->id }}" class="text-indigo-600 hover:text-indigo-900 mr-2">View History</a>
+                                    <a href="/admin/members/{{ $member->id }}" class="text-indigo-600 hover:text-indigo-900 mr-2">View History</a>
                                     <button wire:click="edit('{{ $member->id }}')" class="text-indigo-600 hover:text-indigo-900">Edit</button>
                                     <button wire:click="delete('{{ $member->id }}')" class="text-red-600 hover:text-red-900" onclick="confirm('Are you sure?') || event.stopImmediatePropagation()">Delete</button>
                                 </td>

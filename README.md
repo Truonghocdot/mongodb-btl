@@ -20,6 +20,11 @@ php artisan library:indexes
 
 `library:indexes` is idempotent and ensures unique / query-performance indexes for the domain collections.
 
+Default seeded admin account:
+
+- Email: `admin@library.local`
+- Password: `admin123`
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:

@@ -22,13 +22,22 @@
                     <div class="hidden md:ml-10 md:flex md:space-x-8">
                         <a href="/" class="inline-flex items-center px-1 pt-1 border-b-2 {{ request()->is('/') ? 'border-indigo-500 text-slate-900' : 'border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300' }} text-sm font-medium">Catalog</a>
                         <a href="/portal" class="inline-flex items-center px-1 pt-1 border-b-2 {{ request()->is('portal*') ? 'border-indigo-500 text-slate-900' : 'border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300' }} text-sm font-medium">My Loans</a>
+                        @if(auth()->check() && auth()->user()->isCustomer())
+                            <a href="/customer/orders" class="inline-flex items-center px-1 pt-1 border-b-2 {{ request()->is('customer/orders*') ? 'border-indigo-500 text-slate-900' : 'border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300' }} text-sm font-medium">My Orders</a>
+                        @endif
                     </div>
                 </div>
                 <div class="flex items-center space-x-4">
-                    <a href="/" class="text-slate-500 hover:text-slate-700">
-                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                    </a>
-                    <a href="/portal" class="bg-indigo-600 text-white px-4 py-2 rounded-full text-sm font-semibold hover:bg-indigo-700 transition shadow-sm">Sign In</a>
+                    @if(auth()->check())
+                        <span class="text-sm text-slate-600 hidden md:inline">Hi, {{ auth()->user()->name }}</span>
+                        <form method="POST" action="/logout">
+                            @csrf
+                            <button class="bg-slate-200 text-slate-700 px-4 py-2 rounded-full text-sm font-semibold hover:bg-slate-300 transition">Logout</button>
+                        </form>
+                    @else
+                        <a href="/login" class="bg-indigo-600 text-white px-4 py-2 rounded-full text-sm font-semibold hover:bg-indigo-700 transition shadow-sm">Login</a>
+                        <a href="/register" class="bg-slate-200 text-slate-700 px-4 py-2 rounded-full text-sm font-semibold hover:bg-slate-300 transition">Register</a>
+                    @endif
                 </div>
             </div>
         </div>

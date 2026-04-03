@@ -7,8 +7,10 @@ use App\Models\Category;
 use App\Models\Fine;
 use App\Models\Loan;
 use App\Models\Member;
+use App\Models\Order;
 use App\Models\Reservation;
 use App\Models\Review;
+use App\Models\User;
 
 class MongoIndexManager
 {
@@ -41,6 +43,25 @@ class MongoIndexManager
         ]);
         $created[] = $this->create(Member::class, ['phone' => 1], [
             'name' => 'members_phone_idx',
+        ]);
+
+        $created[] = $this->create(User::class, ['email' => 1], [
+            'name' => 'users_email_unique',
+            'unique' => true,
+        ]);
+        $created[] = $this->create(User::class, ['role' => 1], [
+            'name' => 'users_role_idx',
+        ]);
+
+        $created[] = $this->create(Order::class, ['order_code' => 1], [
+            'name' => 'orders_order_code_unique',
+            'unique' => true,
+        ]);
+        $created[] = $this->create(Order::class, ['customer_id' => 1, 'ordered_at' => -1], [
+            'name' => 'orders_customer_ordered_at_idx',
+        ]);
+        $created[] = $this->create(Order::class, ['status' => 1, 'ordered_at' => -1], [
+            'name' => 'orders_status_ordered_at_idx',
         ]);
 
         $created[] = $this->create(Loan::class, ['member_id' => 1, 'status' => 1], [

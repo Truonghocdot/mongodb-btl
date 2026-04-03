@@ -7,8 +7,10 @@ use App\Models\Category;
 use App\Models\Fine;
 use App\Models\Loan;
 use App\Models\Member;
+use App\Models\Order;
 use App\Models\Reservation;
 use App\Models\Review;
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -21,14 +23,41 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        $faker = \Faker\Factory::create();
+
         // Reset domain collections for deterministic seed data.
         Fine::query()->delete();
         Review::query()->delete();
         Reservation::query()->delete();
         Loan::query()->delete();
+        Order::query()->delete();
+        User::query()->delete();
         Book::query()->delete();
         Member::query()->delete();
         Category::query()->delete();
+
+        // 0. Auth users (admin + customers)
+        User::create([
+            'name' => 'System Admin',
+            'email' => 'admin@library.local',
+            'phone' => '0900000000',
+            'address' => 'Head Office',
+            'password' => 'admin123',
+            'role' => 'admin',
+        ]);
+
+        for ($i = 0; $i < 6; $i++) {
+            User::create([
+                'name' => $faker->name,
+                'email' => $faker->unique()->safeEmail,
+                'phone' => $faker->phoneNumber,
+                'address' => $faker->address,
+                'password' => 'password',
+                'role' => 'customer',
+            ]);
+        }
+
+        $allCustomers = User::where('role', 'customer')->get();
 
         // 1. Categories
         $categories = [
@@ -46,7 +75,6 @@ class DatabaseSeeder extends Seeder
         $allCategories = Category::all();
 
         // 2. Members
-        $faker = \Faker\Factory::create();
         for ($i = 0; $i < 10; $i++) {
             Member::create([
                 'name' => $faker->name,
@@ -136,6 +164,21 @@ class DatabaseSeeder extends Seeder
                 'member_id' => $allMembers->random()->id,
                 'rating' => rand(3, 5),
                 'comment' => $faker->sentence(10),
+            ]);
+        }
+
+        // 8. Orders for customer role
+        for ($i = 0; $i < 15; $i++) {
+            $customer = $allCustomers->random();
+
+            Order::create([
+                'customer_id' => (string) $customer->id,
+                'order_code' => 'ORD-'.strtoupper(substr((string) str()->uuid(), 0, 8)),
+                'item_name' => $faker->words(3, true),
+                'quantity' => rand(1, 5),
+                'total_amount' => rand(100000, 3000000),
+                'status' => collect(['pending', 'processing', 'completed', 'cancelled'])->random(),
+                'ordered_at' => now()->subDays(rand(1, 30))->toDateString(),
             ]);
         }
     }

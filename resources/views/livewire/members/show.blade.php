@@ -1,6 +1,6 @@
 <div>
     <div class="mb-6">
-        <a href="/members" class="text-indigo-600 hover:text-indigo-900 flex items-center">
+        <a href="/admin/members" class="text-indigo-600 hover:text-indigo-900 flex items-center">
             <span class="mr-2">←</span> Back to Members
         </a>
     </div>
